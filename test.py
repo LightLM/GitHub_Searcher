@@ -6,8 +6,6 @@ from PIL import Image, ImageTk
 
 url = 'https://api.github.com/search/users?q='
 
-root = tk.Tk()
-
 
 def load_image():
     print(entry.get())
@@ -35,10 +33,12 @@ def load_image():
         label.config(text='Такого нет(')
 
 
-entry = ttk.Entry()
-entry.pack()
-tk.Button(root, text='Load an image', command=load_image).pack()
-label = tk.Label(root)
-label.pack()
+if __name__ == '__main__':
+    root = tk.Tk()
+    entry = ttk.Entry()
+    entry.pack()
+    tk.Button(root, text='Load an image', command=load_image).pack()
+    label = tk.Label(root)
+    label.pack()
 
-root.mainloop()
+    root.mainloop()
