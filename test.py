@@ -10,7 +10,7 @@ url = 'https://api.github.com/search/users?q='
 def load_image():
     print(entry.get())
     res = requests.get(url + str(entry.get()) + '&per_page=1')
-    print(res.json()['items'][0])
+    print(res.json()['items'])
     if res.json()['items']:
         url_image = (res.json()['items'][0]['avatar_url'])
         label.config(text='Loading an image...')
@@ -23,10 +23,9 @@ def load_image():
             if response.status_code != 200:
                 label.config(text=f'HTTP error {response.status_code}')
             else:
-                pil_image = Image.open(BytesIO(response.content))
+                pil_image = Image.open(BytesIO(response.content)).resize((300, 300))
                 image = ImageTk.PhotoImage(pil_image)
                 label.config(image=image, text=res.json()['items'][0]['login'], compound='top')
-
 
                 label.image = image
     else:
@@ -35,6 +34,7 @@ def load_image():
 
 if __name__ == '__main__':
     root = tk.Tk()
+    root.geometry('300x370')
     entry = ttk.Entry()
     entry.pack()
     tk.Button(root, text='Load an image', command=load_image).pack()
