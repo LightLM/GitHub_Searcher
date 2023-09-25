@@ -27,7 +27,6 @@ def main(page: ft.Page):
             reps_nick = requests.get(info['repos_url']).json()[:5]
             dd.options = [ft.dropdown.Option(f'{i["name"]}') for i in reps_nick]
             dd.hint_text = f'{len(requests.get(info["repos_url"]).json()[:5])} реп профиля под именем: {info["login"]}'
-            t_dd.value = ''
             if not info["login"] in a:
                 a[info["login"]] = {'avatar_url': info['avatar_url'], 'reps': reps_nick, 'html_url': info['html_url']}
                 with open("data.json", "w") as refresh:
@@ -41,6 +40,9 @@ def main(page: ft.Page):
                                   color=ft.colors.YELLOW
                                   )
             con.url = ''
+            dd.options = [ft.dropdown.Option('Пока ничего нет')]
+            dd.hint_text = 'По такому нику ничего нет('
+        t_dd.value = ''
         page.update()
 
     def dropdown_changed(e):
@@ -61,8 +63,8 @@ def main(page: ft.Page):
 
     con = ft.Container(
         content=ft.Text('Начнем поиск'),
-        width=300,
-        height=300,
+        width=350,
+        height=350,
         padding=ft.padding.only(bottom=5),
         image_src='svadebnym_spetsialistam_kak_ispolzovat_vkontakte_dlya_prodvizheniya_biznesa.jpg',
         alignment=ft.alignment.bottom_center
@@ -90,7 +92,7 @@ def main(page: ft.Page):
         options=[
             ft.dropdown.Option("Пока ничего нет")
         ],
-        width=300,
+        width=350,
     )
 
     dd_2 = ft.Dropdown(
