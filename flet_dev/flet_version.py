@@ -27,6 +27,7 @@ def main(page: ft.Page):
             reps_nick = requests.get(info['repos_url']).json()[:5]
             dd.options = [ft.dropdown.Option(f'{i["name"]}') for i in reps_nick]
             dd.hint_text = f'{len(requests.get(info["repos_url"]).json()[:5])} реп профиля под именем: {info["login"]}'
+            t_dd.value = ''
             if not info["login"] in a:
                 a[info["login"]] = {'avatar_url': info['avatar_url'], 'reps': reps_nick, 'html_url': info['html_url']}
                 with open("data.json", "w") as refresh:
@@ -55,6 +56,7 @@ def main(page: ft.Page):
                               )
         dd.options = [ft.dropdown.Option(f'{i["name"]}') for i in a[name]['reps']]
         dd.hint_text = f'{len(a[name]["reps"])} реп профиля под именем: {name}'
+        t_dd.value = ''
         page.update()
 
     con = ft.Container(
@@ -98,7 +100,7 @@ def main(page: ft.Page):
         ],
         width=300,
     )
-
+    page.window_width = 400
     page.add(ft.Row(
         controls=[tb, b]
     ))
